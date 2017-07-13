@@ -7,4 +7,6 @@ ad of phone
        4.练习ps切图
 * 过程：克服代码的组件化思路整理，实现代码的重用，减轻负担
 * 结果：
-  ![](https://github.com/ssslc/phone-ad/blob/master/view.png)
+ 
+  ![](https://github.com/ssslc/phone-ad/blob/master/img/337.gif)  
+
