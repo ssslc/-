@@ -1,210 +1,179 @@
-
-var getByClass = function (className) {
-  return document.getElementsByClassName(className);
+//获取元素
+var getElem = function (selector) {
+    return document.querySelector(selector);
 }
-var addClass = function (element , _className) {
-
-  var className = element.className.split(' ');
-  var classNameMap = {}
-
-  for(var i=0;i<className.length;i++){
-    classNameMap[ className[i]] = 1;
-  }
-  classNameMap[_className] = 1;
-
-  className = [];
-  for(i in classNameMap){
-    className.push(i);
-  }
-  element.className = className.join(' ');
-
+var getAllElem = function (selector) {
+    return document.querySelectorAll(selector);
 }
-var removeClass = function (element ,  _className) {
-
-  var className = element.className.split(' ');
-  var classNameMap = {}
-  for(var i=0;i<className.length;i++){ 
-    classNameMap[ className[i]] = 1;
-  }
-  delete classNameMap[_className];
-  className = [];
-  for(i in classNameMap){
-    className.push(i);
-  }
-  element.className = className.join(' ');
+//获取元素样式
+var getCls = function (element) {
+    return element.getAttribute('class');
+}
+//设置元素样式
+var setCls = function (element , cls) {
+    return element.setAttribute('class',cls);
+}
+//为元素添加样式
+var addCls = function (element , cls) {
+    var baseCls = getCls(element);
+    if(baseCls.indexOf(cls) === -1){
+        setCls(element,baseCls+' '+cls);
+    }
+}
+//为元素删除样式
+var delCls = function (element , cls) {
+    var baseCls = getCls(element);
+    if( baseCls.indexOf(cls) != -1){
+        setCls(element,baseCls.split(cls).join('').replace(/\s+/g,' '));
+    }
 }
 
+//fisrt:init
+var screenAnimateElements = {
+    '.screen-1':[
+        '.screen-1__heading',
+        '.screen-1__phone',
+        '.screen-1__shadow'
+    ],
+    '.screen-2' :[
+        '.screen-2__heading',
+        '.screen-2__subheading',
+        '.screen-2__phone',
+        '.screen-2__point_i_1',
+        '.screen-2__point_i_2',
+        '.screen-2__point_i_3'
+    ],
+    '.screen-3' :[
+        '.screen-3__heading',
+        '.screen-3__phone',
+        '.screen-3__subheading',
+        '.screen-3__features'
+    ],
+    '.screen-4' :[
+        '.screen-4__heading',
+        '.screen-4__subheading',
+        '.screen-4__type-item_i_1',
+        '.screen-4__type-item_i_2',
+        '.screen-4__type-item_i_3',
+        '.screen-4__type-item_i_4'
+    ],
+    '.screen-5' :[
+        '.screen-5__heading',
+        '.screen-5__subheading',
+        '.screen-5__back'
+    ]
 
 
-window.onload = function  (argument) {
-  
-  addClass( getByClass('header')[0] , 'header_active_1' ) ;
-
-  addClass( getByClass('screen-1__heading')[0] , 'screen-1__heading_animate_init' );
-  addClass( getByClass('screen-1__phone')[0] , 'screen-1__phone_animate_init' );
-  addClass( getByClass('screen-1__shadow')[0] , 'screen-1__shadow_animate_init' );
-
-  // screen 2 init
-  addClass( getByClass('screen-2__heading')[0] , 'screen-2__heading_animate_init' );
-  addClass( getByClass('screen-2__subheading')[0] , 'screen-2__subheading_animate_init' );
-  addClass( getByClass('screen-2__phone')[0] , 'screen-2__phone_animate_init' );
-
-
-  addClass( getByClass('screen-3__heading')[0] , 'screen-3__heading_animate_init' );
-  addClass( getByClass('screen-3__subheading')[0] , 'screen-3__subheading_animate_init' );
-  addClass( getByClass('screen-3__phone')[0] , 'screen-3__phone_animate_init' );
-  addClass( getByClass('screen-3__features')[0] , 'screen-3__features_animate_init' );
-
-
-  addClass( getByClass('screen-4__heading')[0] , 'screen-4__heading_animate_init' );
-  addClass( getByClass('screen-4__subheading')[0] , 'screen-4__subheading_animate_init' );
-  addClass( getByClass('screen-4__type')[0] , 'screen-4__type_animate_init' );
-
-
-
-  addClass( getByClass('screen-5__heading')[0] , 'screen-5__heading_animate_init' );
-  addClass( getByClass('screen-5__subheading')[0] , 'screen-5__subheading_animate_init' );
-  addClass( getByClass('screen-5__back')[0] , 'screen-5__back_animate_init' );
-
-  setTimeout(function () {
-
-    getByClass('screen-1__heading')[0].style.visibility='visible';
-    getByClass('screen-1__phone')[0].style.visibility='visible';
-    getByClass('screen-1__shadow')[0].style.visibility='visible';
-
-    addClass( getByClass('screen-1__heading')[0] , 'screen-1__heading_animate_done' );
-    addClass( getByClass('screen-1__phone')[0] , 'screen-1__phone_animate_done' );
-    addClass( getByClass('screen-1__shadow')[0] , 'screen-1__shadow_animate_done' );
-  },500)
-
-
-
-  getByClass('header__nav-item_i_1')[0].onclick=function () {
-    document.body.scrollTop = 0;
-  }
-  getByClass('header__nav-item_i_2')[0].onclick=function () {
-    document.body.scrollTop = 1*800-60;
-  }
-  getByClass('header__nav-item_i_3')[0].onclick=function () {
-    document.body.scrollTop = 2*800-60;
-  }
-  getByClass('header__nav-item_i_4')[0].onclick=function () {
-    document.body.scrollTop = 3*800-60;
-  }
-
-  getByClass('header__nav-item_i_5')[0].onclick=function () {
-    document.body.scrollTop = 4*800-60;
-  }
-
-  getByClass('header__nav')[0].onmouseout = function  () {
-    getByClass('header__nav-item-tip')[0].style.left = '';
-  }
-  getByClass('header__nav-item_i_1')[0].onmouseover=function () {
-    getByClass('header__nav-item-tip')[0].style.left = (0*100+20)+'px';
-  }
-  getByClass('header__nav-item_i_2')[0].onmouseover=function () {
-    getByClass('header__nav-item-tip')[0].style.left = (1*100+20)+'px';
-  }
-  getByClass('header__nav-item_i_3')[0].onmouseover=function () {
-    getByClass('header__nav-item-tip')[0].style.left = (2*100+20)+'px';
-  }
-  getByClass('header__nav-item_i_4')[0].onmouseover=function () {
-    getByClass('header__nav-item-tip')[0].style.left = (3*100+20)+'px';
-  }
-  getByClass('header__nav-item_i_5')[0].onmouseover=function () {
-    getByClass('header__nav-item-tip')[0].style.left = (4*100+20)+'px';
-  }
+};
+var setScreenAnimateInit = function( screenCls ){
+    var screen = document.querySelector(screenCls);// get now screen
+    var animateElements = screenAnimateElements[screenCls]; //needed setanielement
+    for (var i=0;i<animateElements.length;i++){
+        var element = document.querySelector(animateElements[i]);
+        var baseCls = element.getAttribute('class');
+        element.setAttribute('class',baseCls + ' ' +animateElements[i].substr(1)+'_animate_init');
+    }
+}
+var playScreenAnimateDone = function(screenCls){
+    var screen = document.querySelector(screenCls);// get now screen
+    var animateElements = screenAnimateElements[screenCls]; //needed setanielement
+    for (var i=0;i<animateElements.length;i++){
+        var element = document.querySelector(animateElements[i]);
+        var baseCls = element.getAttribute('class');
+        element.setAttribute('class',baseCls.replace('_animate_init','_animate_done') );
+    }
+}
+window.onload = function () {
+    for(k in screenAnimateElements){
+        if(k === '.screen-1'){
+            continue;
+        }
+        setScreenAnimateInit(k);
+    }
 }
 
-
-
-
+//滚动播放
+var navItems = getAllElem('.header__nav-item');
+var outLineItems = getAllElem('.outline__item');
+var switchNavItemsActive = function ( idx ) {
+    for(var i = 0;i< navItems.length; i++){
+        delCls(navItems[i],'header__nav-item_status_active');
+    }
+    addCls(navItems[idx],'header__nav-item_status_active');
+    for(var i = 0;i< outLineItems.length; i++){
+        delCls(outLineItems[i],'outline__item_status_active');
+    }
+    addCls(outLineItems[idx],'outline__item_status_active');
+}
+switchNavItemsActive(0);
 window.onscroll = function () {
-
-  var top  = document.body.scrollTop;
-  if( top < 100 ){
-    getByClass('header')[0].setAttribute('class','header header_active_1')
-    removeClass( getByClass('header')[0] , 'header_status_black' );
-  }else{
-    addClass( getByClass('header')[0] , 'header_status_black' ) ;
-  }
-
-  if( top < 400 ){
-    getByClass('outline')[0].style.opacity=0;
-  }else{
-    getByClass('outline')[0].style.opacity=1;
-    getByClass('outline')[0].setAttribute('class','outline outline_active_1');
-
-  }
-
-  
-
-  if(top>1*800-61){
-    getByClass('header')[0].setAttribute('class','header header_status_black header_active_2');
-
-    removeClass( getByClass('screen-2__heading')[0] , 'screen-2__heading_animate_init' );
-    removeClass( getByClass('screen-2__subheading')[0] , 'screen-2__subheading_animate_init' );
-    removeClass( getByClass('screen-2__phone')[0] , 'screen-2__phone_animate_init' );
-
-    addClass( getByClass('screen-2__heading')[0] , 'screen-2__heading_animate_done' );
-    addClass( getByClass('screen-2__subheading')[0] , 'screen-2__subheading_animate_done' );
-    addClass( getByClass('screen-2__phone')[0] , 'screen-2__phone_animate_done' );
-
-    getByClass('outline')[0].setAttribute('class','outline outline_active_2');
-  }
-
-  if(top>2*800-61){
-    getByClass('header')[0].setAttribute('class','header header_status_black header_active_3');
-
-    removeClass( getByClass('screen-3__heading')[0] , 'screen-3__heading_animate_init' );
-    removeClass( getByClass('screen-3__subheading')[0] , 'screen-3__subheading_animate_init' );
-    removeClass( getByClass('screen-3__phone')[0] , 'screen-3__phone_animate_init' );
-    removeClass( getByClass('screen-3__features')[0] , 'screen-3__features_animate_init' );
-
-    addClass( getByClass('screen-3__heading')[0] , 'screen-3__heading_animate_done' );
-    addClass( getByClass('screen-3__subheading')[0] , 'screen-3__subheading_animate_done' );
-    addClass( getByClass('screen-3__phone')[0] , 'screen-3__phone_animate_done' );
-    addClass( getByClass('screen-3__features')[0] , 'screen-3__features_animate_done' );
-
-    getByClass('outline')[0].setAttribute('class','outline outline_active_3');
-  }
-  if(top>3*800-61){
-    getByClass('header')[0].setAttribute('class','header header_status_black header_active_4');
-
-
-    removeClass( getByClass('screen-4__heading')[0] , 'screen-4__heading_animate_init' );
-    removeClass( getByClass('screen-4__subheading')[0] , 'screen-4__subheading_animate_init' );
-    removeClass( getByClass('screen-4__type')[0] , 'screen-4__type_animate_init' );
-
-
-    addClass( getByClass('screen-4__heading')[0] , 'screen-4__heading_animate_done' );
-    addClass( getByClass('screen-4__subheading')[0] , 'screen-4__subheading_animate_done' );
-    addClass( getByClass('screen-4__type')[0] , 'screen-4__type_animate_done' );
-
-    getByClass('outline')[0].setAttribute('class','outline outline_active_4');
-
-
-  }
-  if(top>4*800-61){
-    getByClass('header')[0].setAttribute('class','header header_status_black header_active_5');
-
-
-    removeClass( getByClass('screen-5__heading')[0] , 'screen-5__heading_animate_init' );
-    removeClass( getByClass('screen-5__subheading')[0] , 'screen-5__subheading_animate_init' );
-    removeClass( getByClass('screen-5__back')[0] , 'screen-5__back_animate_init' );
-
-
-    addClass( getByClass('screen-5__heading')[0] , 'screen-5__heading_animate_done' );
-    addClass( getByClass('screen-5__subheading')[0] , 'screen-5__subheading_animate_done' );
-    addClass( getByClass('screen-5__back')[0] , 'screen-5__back_animate_done' );
-
-    getByClass('outline')[0].setAttribute('class','outline outline_active_5');
-
-  }
+   var top = document.body.scrollTop;
+   if(top > 80 ){
+       addCls(getElem('.header'), 'header_status_black');
+       addCls(getElem('.outline'), 'outline_status_in');
+   } else{
+       delCls(getElem('.header'), 'header_status_black');
+       delCls(getElem('.outline'), 'outline_status_in');
+       switchNavItemsActive(0);
+   }
+   if(top > 1){
+       playScreenAnimateDone('.screen-1');
+   }
+    if(top > 800*1 -100){
+        playScreenAnimateDone('.screen-2');
+        switchNavItemsActive(1)
+    }
+    if(top > 800*2 -100){
+        playScreenAnimateDone('.screen-3');
+        switchNavItemsActive(2)
+    }
+    if(top > 800*3 -100){
+        playScreenAnimateDone('.screen-4');
+        switchNavItemsActive(3)
+    }
+    if(top > 800*4 -100){
+        playScreenAnimateDone('.screen-5');
+        switchNavItemsActive(4)
+    }
 }
-// var mouseEnterTip = function (element) {
-//   var e = document.createEvent('MouseEvents');
-//   e.initEvent( 'mouseenter', true, false );
-//   element.dispatchEvent(e);
-// }
 
+//三向定位
+
+var setNavJump = function (i,lib) {
+    var item = lib[i];
+    item.onclick = function () {
+        document.body.scrollTop = i*800
+    }
+}
+for(var i=0;i<navItems.length;i++){
+    setNavJump(i,navItems);
+}
+
+for(var i=0;i<outLineItems.length;i++){
+    setNavJump(i,outLineItems);
+}
+
+//滑动门
+var navTip = getElem('.header__nav-item-tip');
+var setTip = function (idx,lib) {
+    lib[idx].onmouseover = function () {
+            navTip.style.left =(idx * 100 +20) +'px';
+    }
+    var avtiveIdx = 0;
+    lib[idx].onmouseout = function () {
+      console.log(this, idx);
+      for(var i = 0;i<lib.length;i++){
+          if(getCls(lib[i]).indexOf('header__nav-item_status_active') > -1){
+             avtiveIdx = i;
+              break;
+          }
+      }
+        navTip.style.left =(avtiveIdx * 100 +20) +'px';
+    }
+}
+for(var i = 0;i<navItems.length;i++){
+      setTip(i,navItems);
+}
+setTimeout(function () {
+    playScreenAnimateDone('.screen-1');
+},200)
